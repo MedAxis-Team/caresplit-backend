@@ -15,8 +15,20 @@ const signUp = async (req: Request, res: Response) => {
 }
 
 
+const login = async (req: Request, res: Response) => {
+       const { email, password } = req.body
+
+       const user = await AuthService.login(email, password)
+
+       res.status(200).json({
+        status: 'success',
+        message: 'User logged in successfully'
+       })
+}
+
 const AuthController = {
-    signUp 
+    signUp,
+    login
 }
 
 export default AuthController
