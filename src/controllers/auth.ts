@@ -5,6 +5,9 @@ import AuthService from "../services/auth.js"
 
 export const signUp = async (req: Request, res: Response) => {
 
+    try {
+
+      
     const { fullname, email, phone, password } = req.body
 
     const user = await AuthService.signUp(fullname, email, phone, password)
@@ -19,11 +22,27 @@ export const signUp = async (req: Request, res: Response) => {
         }
         
     })
+
+
+
+    }catch(error){
+        res.status(500).json({
+            status: 'error',
+            message: error instanceof Error ? error.message : 'Error signing up user'
+        })
+
+    }
+
 }
 
 
 export const login = async (req: Request, res: Response) => {
+
+    
        const { email, password } = req.body
+
+          try {
+
 
 const user = await AuthService.loginService(email, password);
 
@@ -53,6 +72,15 @@ const user = await AuthService.loginService(email, password);
         }
         
        })
+
+
+
+          } catch (error) {
+            res.status(500).json({
+                status: 'error',
+                message: error instanceof Error ? error.message : 'Error logging in user'
+            })
+          }
 }
 
 const AuthController = {

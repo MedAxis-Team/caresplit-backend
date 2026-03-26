@@ -11,6 +11,10 @@ export const bill = async (req: Request, res: Response) => {
     dateOfService  } =req.body
 
 
+
+    try {
+
+
             // // get userId from token payload
               const user = req.user as TokenPayload
       
@@ -40,11 +44,23 @@ export const bill = async (req: Request, res: Response) => {
                     message: 'Bill uploaded successfully',
                     data: bill
                 })
+
+    } catch(error){
+        res.status(500).json({
+            status: 'error',
+            message: error instanceof Error ? error.message : 'Error creating bill'
+        })
+    }
+
+
 }
 
 
 export const getBills = async (req: Request, res: Response) => {
       
+
+    try {
+        
     const bills = await BillService.getBills()
 
     res.status(200).json({
@@ -52,10 +68,20 @@ export const getBills = async (req: Request, res: Response) => {
         message:'Successfully fetched bills',
         data: bills
     })
+        
+    } catch (error) {
+        res.status(500).json({
+            status: 'error',
+            message: error instanceof Error ? error.message : 'Error fetching bills'
+        })
+    }
 }
 
 export const getBill = async (req: Request, res: Response) => {
-    const { billId } = req.params
+
+
+    try {
+         const { billId } = req.params
 
     const bill = await BillService.getBill(billId)
 
@@ -64,6 +90,14 @@ export const getBill = async (req: Request, res: Response) => {
         message:'Bill fetched successfully',
         data: bill
     })
+
+    } catch(error){
+        res.status(500).json({
+            status: 'error',
+            message: error instanceof Error ? error.message : 'Error fetching bill'
+        })
+    }
+   
 }
 
 
