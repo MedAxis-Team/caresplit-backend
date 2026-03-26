@@ -5,7 +5,7 @@ export const uploadBill = async (
     patientId: string, 
     totalAmount: number, 
     hospitalName: string,
-    treatmentBreakdown:[name: string, cost: number],
+    treatmentBreakdown: { name: string; cost: number }[],
     hospitalAddress: string,
     dateOfService: Date
 
@@ -13,16 +13,16 @@ export const uploadBill = async (
         
         {
          
-            if(!patientId || totalAmount 
-                || hospitalName || hospitalAddress 
-                || treatmentBreakdown || dateOfService){
+            if(!patientId || !totalAmount 
+                || !hospitalName || !hospitalAddress 
+                || !treatmentBreakdown || !dateOfService){
                   
                     throw new Error('All fields are required')
             }
         
 
 
-        const bill = await new Bill({
+        const bill = new Bill({
             patientId,
     totalAmount,
     hospitalName,
@@ -43,7 +43,7 @@ export const getBills = async () => {
 
     const bills = await Bill.find()
 
-    if(!bills || bills.length === 0){
+    if(!bills){
         throw new Error('Bills not found')
     }
 

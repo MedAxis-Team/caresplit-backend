@@ -26,16 +26,19 @@ export const bill = async (req: Request, res: Response) => {
               const patientId = user.userId
 
 
-              const bill = BillService.uploadBill(patientId, 
-                totalAmount, hospitalName, 
-                hospitalAddress, treatmentBreakdown, dateOfService)
+              const bill = await BillService.uploadBill(
+                patientId, 
+    totalAmount, 
+    hospitalName, 
+    treatmentBreakdown, // 4th
+    hospitalAddress,    // 5th
+    dateOfService
+            )
 
                 res.status(201).json({
                     status:"success",
                     message: 'Bill uploaded successfully',
-                    data: {
-                        bill
-                    }
+                    data: bill
                 })
 }
 
@@ -47,9 +50,7 @@ export const getBills = async (req: Request, res: Response) => {
     res.status(200).json({
         status:'success',
         message:'Successfully fetched bills',
-        data: {
-            bills
-        }
+        data: bills
     })
 }
 
@@ -61,9 +62,7 @@ export const getBill = async (req: Request, res: Response) => {
     res.status(200).json({
         status:'success',
         message:'Bill fetched successfully',
-        data: {
-            bill
-        }
+        data: bill
     })
 }
 
