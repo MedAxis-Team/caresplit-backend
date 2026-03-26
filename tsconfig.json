@@ -1,18 +1,32 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
-    "module": "ES2020",
-    "lib": ["ES2020"],
-    "outDir": "./dist",
-    "rootDir": "./src",
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
+    /* Base Options */
+    "target": "ES2022",                  // Modern JS features (Private fields, Top-level await)
+    "module": "NodeNext",                // Crucial: Correct ESM behavior for Node 22+
+    "moduleResolution": "NodeNext",      // Correctly resolves .js/.ts in ESM
+    "lib": ["ES2022"],
+    "experimentalDecorators": true,    // 👈 MUST BE TRUE
+    "emitDecoratorMetadata": true,     // 👈 MUST BE TRUE
+    "useDefineForClassFields": false,   // 👈 Set to false for class-validator compatibility                   // Standard libraries for modern Node
+    
+    /* Strictness - Essential for a Wallet App */
+    "strict": true,                      // Enable all strict type-checking
+    "noImplicitAny": true,               // Prevent accidental 'any' types
+    "strictNullChecks": true,            // Avoid 'cannot read property of undefined'
+    
+    /* Interop & Security */
+    "esModuleInterop": true,             // Fixes imports for older libraries
+    "skipLibCheck": true,                // Speeds up build by skipping node_modules check
     "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true,
-    "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true
+    
+    /* Build Settings */
+    "outDir": "./dist",                  // Where compiled code goes
+    "rootDir": "./src",                  // Where your source code lives
+    "noEmit": true,                      // Set to true if using 'tsx' (it handles transpilation)
+    "sourceMap": true,                   // Essential for debugging
+    "resolveJsonModule": true            // Allow importing .json files
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist"]
+  "include": ["src/**/*"],               // Only compile files in src
+  "exclude": ["node_modules", "**/*.test.ts"],
+
 }
