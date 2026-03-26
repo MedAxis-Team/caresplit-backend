@@ -2,12 +2,7 @@ import dotenv from 'dotenv';
 import app from './app.js';
 import { connectDB } from './config/db.js';
 
-const envResult = dotenv.config();
-
-if (envResult.error) {
-  console.error('Failed to load .env file', envResult.error);
-  process.exit(1);
-}
+dotenv.config();
 
 const PORT = Number(process.env.PORT) || 3000;
 
