@@ -6,7 +6,6 @@ interface IPayment extends Document {
     amountPaid: number;
     status: 'pending' | 'completed' | 'failed';
     reference: string;
-    interswitchResponse: any
     createdAt: Date;
 
 }
@@ -34,9 +33,6 @@ const paymentSchema: Schema<IPayment> = new Schema({
     reference: {
         type: String,
         required: true
-    },
-    interswitchResponse: {
-        type: Object
     },
     createdAt: {
         type: Date,
